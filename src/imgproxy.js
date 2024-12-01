@@ -1,7 +1,8 @@
-require('dotenv').config()
-const { createHmac } = require('node:crypto');
+import dotenv from 'dotenv'
+import { createHmac } from 'node:crypto';
+dotenv.config()
 
-class ProxyService {
+export default class ProxyService {
     static  baseUrl = 's3://s3-daily-drip-015812eb-e529-49ee-b23a-d95053fe9ef9';
     static  proxyUrl = 'https://images.dailydrip.news'
 
@@ -36,5 +37,3 @@ function sign(target) {
 
     return `/${signature}${target}`
 }
-
-module.exports = ProxyService

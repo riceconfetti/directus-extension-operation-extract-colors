@@ -1,22 +1,23 @@
 export default {
-	id: 'operation-lodash-camelcase',
-	name: 'Lodash Camel Case',
-	icon: 'electric_bolt',
-	description: 'Use Lodash Camel Case Function.',
-	overview: ({ text }) => [
+	id: 'operation-extract-colors',
+	name: 'Extract Colors',
+	icon: 'palette',
+	description: 'Extract color palette from character splash art.',
+	overview: ({ character }) => [
 		{
-			label: 'Text',
-			text: text,
+			label: 'Character',
+			text: character,
 		},
 	],
 	options: [
 		{
-			field: 'text',
-			name: 'Text',
+			field: 'character',
+			name: 'Character',
 			type: 'string',
 			meta: {
 				width: 'full',
 				interface: 'input',
+				required: true,
 			},
 		},
 	],
