@@ -1,7 +1,7 @@
 import { defineOperationApi } from "@directus/extensions-sdk";
 import ProxyService from "./imgproxy";
-import * as extractColors from "extract-colors";
-import * as getPixels from "get-pixels";
+import { extractColors } from "extract-colors";
+import { getPixels } from "get-pixels";
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
@@ -39,7 +39,7 @@ export default defineOperationApi({
       "png"
     );
 
-    const options = {
+    const imgoptions = {
       pixels: 100000,
       distance: 0.18,
       saturationDistance: 0.2,
@@ -54,7 +54,7 @@ export default defineOperationApi({
         const data = [...pixels.data];
         const [width, height] = pixels.shape;
 
-        extractColors({ data, width, height }, options)
+        extractColors({ data, width, height }, imgoptions)
           .then((col) => {
             return {
               colors: col.sort((a, b) => b.area - a.area),
