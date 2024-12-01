@@ -1,18 +1,18 @@
-module.exports =  {
-	id: 'operation-extract-colors',
-	name: 'Extract Character Color Palette',
-	icon: 'palette',
-	description: 'Extract colors from character splash art using extract-colors.',
-	overview: ({ collection }) => [
+export default {
+	id: 'operation-lodash-camelcase',
+	name: 'Lodash Camel Case',
+	icon: 'electric_bolt',
+	description: 'Use Lodash Camel Case Function.',
+	overview: ({ text }) => [
 		{
-			label: '$t:collection',
-			text: collection,
+			label: 'Text',
+			text: text,
 		},
 	],
 	options: [
 		{
-			field: 'character',
-			name: 'Character',
+			field: 'text',
+			name: 'Text',
 			type: 'string',
 			meta: {
 				width: 'full',
