@@ -3,16 +3,16 @@ module.exports =  {
 	name: 'Extract Character Color Palette',
 	icon: 'palette',
 	description: 'Extract colors from character splash art using extract-colors.',
-	overview: ({ text }) => [
+	overview: ({ collection }) => [
 		{
-			label: 'Text',
-			text: text,
+			label: '$t:collection',
+			text: collection,
 		},
 	],
 	options: [
 		{
-			field: 'text',
-			name: 'Text',
+			field: 'character',
+			name: 'Character',
 			type: 'string',
 			meta: {
 				width: 'full',

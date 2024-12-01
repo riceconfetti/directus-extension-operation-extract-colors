@@ -49,9 +49,9 @@ function isGraytone(r, g, b) {
 
 modules.exports = {
 	id: 'operation-extract-colors',
-	handler: ({ data }) => {
+	handler: ({ character }) => {
 		return {
-			data: getColors(data)
+			data: getColors(character)
 		}
 	},
 };
