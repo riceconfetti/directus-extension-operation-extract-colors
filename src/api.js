@@ -56,6 +56,10 @@ export default defineOperationApi({
 
     const response = await fetch(src);
     const image = await response.blob();
+
+    return {
+      image: image,
+    };
     const imageData = await image.arrayBuffer();
     const buffer = Buffer.from(imageData);
 
