@@ -40,7 +40,6 @@ export default defineOperationApi({
     ];
 
     const src = ProxyService.getImage(path, transformOptions, "png");
-    return { character: src };
 
     const imgoptions = {
       pixels: 100000,
@@ -52,7 +51,7 @@ export default defineOperationApi({
       hueDistance: 0.083,
     };
 
-    // let results;
+    let results;
 
     getPixels(src, async (err, pixels) => {
       if (!err) {
