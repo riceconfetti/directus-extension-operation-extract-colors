@@ -69,8 +69,6 @@ export default defineOperationApi({
       };
     };
 
-    return await results();
-
-    return "nothing returned";
+    return await request();
   },
 });
