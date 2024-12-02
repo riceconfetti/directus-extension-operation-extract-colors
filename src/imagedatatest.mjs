@@ -5,11 +5,8 @@ import { extractColors } from "extract-colors";
 const request = async (url) => {
   const response = await fetch(url);
   const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
-  try {
-    return await extractColors(getSync(buffer));
-  } catch (error) {
-    console.log(error);
-  }
+  let colors = await extractColors(getSync(buffer));
+  return colors;
   // return buffer;
 };
 
