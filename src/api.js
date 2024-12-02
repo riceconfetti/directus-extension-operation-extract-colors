@@ -35,7 +35,7 @@ export default defineOperationApi({
           character.focalPoint.y + Math.random() * 0.2 - 0.1,
         ],
       },
-      { key: "crop", params: [300 * c.crop.x, 300 * c.crop.y] },
+      { key: "crop", params: [300 * character.crop.x, 300 * character.crop.y] },
       { key: "resize", params: ["fill", 200, 200] },
     ];
 
