@@ -20,7 +20,7 @@ export default defineOperationApi({
   handler: async ({}, { data }) => {
     const payload = data.$trigger.payload;
 
-    const c = JSON.parse(payload);
+    const c = payload;
     const path = "/characters/" + c.game + "/" + c.id + "/gachaSplash.webp";
     const src = ProxyService.getImage(
       path,
