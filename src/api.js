@@ -1,7 +1,7 @@
 import { defineOperationApi } from "@directus/extensions-sdk";
-import ProxyService from "./imgproxy.mjs";
+import ProxyService from "./imgproxy.js";
 import { extractColors } from "extract-colors";
-import getPixels from "get-pixels";
+import getPixels from "./get-pixels/node-pixels.cjs";
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
@@ -70,6 +70,8 @@ export default defineOperationApi({
         };
       }
     });
-    return results;
+    return {
+      data: results,
+    };
   },
 });
