@@ -64,6 +64,10 @@ export default defineOperationApi({
             };
           })
           .catch((err) => err);
+      } else {
+        results = {
+          error: err,
+        };
       }
     });
     return results;
