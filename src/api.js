@@ -1,7 +1,8 @@
 import { defineOperationApi } from "@directus/extensions-sdk";
+import { get, getSync } from "@andreekeberg/imagedata";
 import ProxyService from "./imgproxy.js";
 import { extractColors } from "extract-colors";
-import getPixels from "./get-pixels/node-pixels.cjs";
+import fetch from "node-fetch";
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
@@ -53,27 +54,23 @@ export default defineOperationApi({
 
     let results;
 
-    getPixels(src, (err, pixels) => {
-      return { err: err, pixels: pixels };
-      if (!err) {
-        const data = [...pixels.data];
+    const response = await fetch(src);
+    const image = await response.blob();
+    const imageData = await image.arrayBuffer();
+    const buffer = Buffer.from(imageData);
 
-        const [width, height] = pixels.shape;
-        extractColors({ data, width, height }, imgoptions)
+    get(buffer, (error, data) => {
+      if (error) {
+        return error;
+      } else {
+        extractColors(data, imgoptions)
           .then((col) => {
             return {
               colors: col.sort((a, b) => b.area - a.area),
             };
           })
           .catch((err) => err);
-      } else {
-        results = {
-          error: err,
-        };
       }
     });
-    return {
-      data: results,
-    };
   },
 });
