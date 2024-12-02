@@ -41,9 +41,6 @@ export default defineOperationApi({
     ];
 
     const src = ProxyService.getImage(path, transformOptions, "png");
-    return {
-      imageLink: src,
-    };
 
     const imgoptions = {
       pixels: 100000,
@@ -60,11 +57,16 @@ export default defineOperationApi({
     const imageData = await image.arrayBuffer();
     const buffer = Buffer.from(imageData);
 
+    let results;
     try {
       results = getSync(buffer);
     } catch (error) {
       results = error;
     }
+
+    return {
+      res: results,
+    };
 
     // get(buffer, (error, data) => {
     //   if (error) {
