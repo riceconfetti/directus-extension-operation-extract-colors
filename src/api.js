@@ -40,7 +40,7 @@ export default defineOperationApi({
     ];
 
     const src = ProxyService.getImage(path, transformOptions, "png");
-    return { data: character.primaryAttribute };
+    return [{ data: character.primaryAttribute }];
 
     const imgoptions = {
       pixels: 100000,
