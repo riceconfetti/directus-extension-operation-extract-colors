@@ -54,43 +54,21 @@ export default defineOperationApi({
     const request = async (url) => {
       const response = await fetch(url);
       const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
-      return buffer;
+      const data = await get(buffer);
+      const colors = await extractColors(data, imgoptions);
+
+      return colors;
     };
 
     let results = async () => {
       return {
         src: src,
-        fetch: await request(src),
+        colors: await request(src),
       };
     };
 
     return await results();
 
-    // const imageData = await image.arrayBuffer();
-    // const buffer = Buffer.from(imageData);
-
-    try {
-      results = getSync(buffer);
-      return {
-        res: results,
-      };
-    } catch (error) {
-      results = error;
-    }
-
-    // get(buffer, (error, data) => {
-    //   if (error) {
-    //     return error;
-    //   } else {
-    //     extractColors(data, imgoptions)
-    //       .then((col) => {
-    //         return {
-    //           colors: col.sort((a, b) => b.area - a.area),
-    //         };
-    //       })
-    //       .catch((err) => err);
-    //   }
-    // });
     return "nothing returned";
   },
 });
