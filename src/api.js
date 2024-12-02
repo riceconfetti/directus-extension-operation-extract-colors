@@ -55,6 +55,9 @@ export default defineOperationApi({
 
     getPixels(src, (err, pixels) => {
       if (!err) {
+        return {
+          data: pixels,
+        };
         const data = [...pixels.data];
         const [width, height] = pixels.shape;
         extractColors({ data, width, height }, imgoptions)
