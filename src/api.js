@@ -17,9 +17,7 @@ function isGraytone(r, g, b) {
 
 export default defineOperationApi({
   id: "operation-extract-colors",
-  handler: async ({}, { data }) => {
-    const character = data.$trigger.payload;
-
+  handler: async ({ character }) => {
     const path =
       "/characters/" +
       character.game +
