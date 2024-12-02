@@ -60,13 +60,12 @@ export default defineOperationApi({
     let results;
     try {
       results = getSync(buffer);
+      return {
+        res: results,
+      };
     } catch (error) {
       results = error;
     }
-
-    return {
-      res: results,
-    };
 
     // get(buffer, (error, data) => {
     //   if (error) {
