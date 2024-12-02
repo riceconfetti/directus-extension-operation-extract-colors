@@ -51,7 +51,7 @@ export default defineOperationApi({
       hueDistance: 0.083,
     };
 
-    fetch(src).then((res) => {
+    results = await fetch(src).then((res) => {
       res.blob().then((bb) => {
         bb.arrayBuffer().then((aB) => {
           const buffer = Buffer.from(imageData);
@@ -62,6 +62,8 @@ export default defineOperationApi({
         });
       });
     });
+
+    return results;
 
     // const imageData = await image.arrayBuffer();
     // const buffer = Buffer.from(imageData);
