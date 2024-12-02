@@ -56,6 +56,7 @@ export default defineOperationApi({
     const image = await response.blob();
     const imageData = await image.arrayBuffer();
     const buffer = Buffer.from(imageData);
+    return response;
 
     let results;
     try {
@@ -80,6 +81,6 @@ export default defineOperationApi({
     //       .catch((err) => err);
     //   }
     // });
-    return results;
+    return "nothing returned";
   },
 });
