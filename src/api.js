@@ -55,15 +55,15 @@ export default defineOperationApi({
       const response = await fetch(url);
       const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
       const data = await getSync(buffer);
-      const colors = await extractColors(data, imgoptions);
+      // const colors = await extractColors(data, imgoptions);
 
-      return colors;
+      return data;
     };
 
     let results = async () => {
       return {
         src: src,
-        colors: await request(src),
+        data: await request(src),
       };
     };
 
