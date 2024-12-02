@@ -57,17 +57,18 @@ export default defineOperationApi({
       return buffer;
     };
 
-    results = {
-      src: src,
-      fetch: await request(src),
+    let results = async () => {
+      return {
+        src: src,
+        fetch: await request(src),
+      };
     };
 
-    return results;
+    return await results();
 
     // const imageData = await image.arrayBuffer();
     // const buffer = Buffer.from(imageData);
 
-    let results;
     try {
       results = getSync(buffer);
       return {
