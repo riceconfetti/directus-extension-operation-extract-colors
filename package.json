@@ -8,19 +8,18 @@
     "directus-extension",
     "directus-extension-operation"
   ],
-  "type": "module",
   "files": [
     "dist"
   ],
   "directus:extension": {
     "type": "operation",
     "path": {
-      "app": "dist/app.js",
-      "api": "dist/api.js"
+      "app": "dist/app.mjs",
+      "api": "dist/api.mjs"
     },
     "source": {
-      "app": "src/app.js",
-      "api": "src/api.js"
+      "app": "src/app.mjs",
+      "api": "src/api.mjs"
     },
     "host": "^10.10.0"
   },
