@@ -38,8 +38,9 @@ export default defineOperationApi({
       { key: "crop", params: [300 * character.crop.x, 300 * character.crop.y] },
       { key: "resize", params: ["fill", 200, 200] },
     ];
-    return { character: character.name };
+
     const src = ProxyService.getImage(path, transformOptions, "png");
+    return { character: character.name };
 
     const imgoptions = {
       pixels: 100000,
