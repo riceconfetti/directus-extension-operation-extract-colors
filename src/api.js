@@ -21,6 +21,10 @@ export default defineOperationApi({
     const payload = data.$trigger.payload;
 
     const c = payload;
+    return {
+      character: c,
+    };
+
     const path = "/characters/" + c.game + "/" + c.id + "/gachaSplash.webp";
     const src = ProxyService.getImage(
       path,
