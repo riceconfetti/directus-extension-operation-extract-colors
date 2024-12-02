@@ -2,7 +2,6 @@ import { defineOperationApi } from "@directus/extensions-sdk";
 import { get, getSync } from "@andreekeberg/imagedata";
 import ProxyService from "./imgproxy.js";
 import { extractColors } from "extract-colors";
-import fetch from "node-fetch";
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
@@ -52,14 +51,20 @@ export default defineOperationApi({
       hueDistance: 0.083,
     };
 
-    const response = await fetch(src);
-    const image = await response.blob();
-    const imageData = await image.arrayBuffer();
-    const buffer = Buffer.from(imageData);
-    return {
-      src: src,
-      fetch: image,
-    };
+    fetch(src).then((res) => {
+      res.blob().then((bb) => {
+        bb.arrayBuffer().then((aB) => {
+          const buffer = Buffer.from(imageData);
+          return {
+            src: src,
+            fetch: buffer,
+          };
+        });
+      });
+    });
+
+    // const imageData = await image.arrayBuffer();
+    // const buffer = Buffer.from(imageData);
 
     let results;
     try {
