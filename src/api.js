@@ -17,11 +17,9 @@ function isGraytone(r, g, b) {
 
 export default defineOperationApi({
   id: "operation-extract-colors",
-  handler: async (__, { data }) => {
-    const payload = data.$payload;
-    return {
-      img: payload,
-    };
+  handler: async ({}, { data }) => {
+    const payload = data.$trigger.payload;
+
     const c = JSON.parse(payload);
     const path = "/characters/" + c.game + "/" + c.id + "/gachaSplash.webp";
     const src = ProxyService.getImage(
@@ -32,6 +30,9 @@ export default defineOperationApi({
       ],
       "png"
     );
+    return {
+      img: src,
+    };
 
     const imgoptions = {
       pixels: 100000,
