@@ -30,6 +30,9 @@ export default defineOperationApi({
       ],
       "png"
     );
+    return {
+      img: "src",
+    };
 
     const imgoptions = {
       pixels: 100000,
