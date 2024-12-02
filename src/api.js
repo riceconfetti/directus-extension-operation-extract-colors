@@ -17,18 +17,10 @@ function isGraytone(r, g, b) {
 
 export default defineOperationApi({
   id: "operation-extract-colors",
-  handler: (options) => {
-    const { character } = options;
+  handler: async (__, { data }) => {
+    const payload = data.$payload;
 
-    if (!character) {
-      throw new Error("No character provided");
-    }
-
-    if (value.includes("undefined")) {
-      throw new Error("All values must be defined");
-    }
-
-    const c = JSON.parse(character);
+    const c = JSON.parse(payload);
     const path = "/characters/" + c.game + "/" + c.id + "/gachaSplash.webp";
     const src = ProxyService.getImage(
       path,
@@ -49,19 +41,19 @@ export default defineOperationApi({
       hueDistance: 0.083,
     };
 
-    getPixels(src, (err, pixels) => {
+    let results;
+
+    getPixels(src, async (err, pixels) => {
       if (!err) {
         const data = [...pixels.data];
         const [width, height] = pixels.shape;
+        let col = await extractColors({ data, width, height }, imgoptions);
 
-        extractColors({ data, width, height }, imgoptions)
-          .then((col) => {
-            return {
-              colors: col.sort((a, b) => b.area - a.area),
-            };
-          })
-          .catch(console.log);
+        results = {
+          colors: col.sort((a, b) => b.area - a.area),
+        };
       }
     });
+    return results;
   },
 });
