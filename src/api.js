@@ -54,21 +54,25 @@ export default defineOperationApi({
     let results;
 
     getPixels(src, (err, pixels) => {
-      if (!err) {
-        const data = [...pixels.data];
-        const [width, height] = pixels.shape;
-        extractColors({ data, width, height }, imgoptions)
-          .then((col) => {
-            results = {
-              colors: col.sort((a, b) => b.area - a.area),
-            };
-          })
-          .catch((err) => err);
-      } else {
-        results = {
-          error: err,
-        };
-      }
+      results = {
+        err: err,
+        pixels: pixels,
+      };
+      // if (!err) {
+      //   const data = [...pixels.data];
+      //   const [width, height] = pixels.shape;
+      //   extractColors({ data, width, height }, imgoptions)
+      //     .then((col) => {
+      //       results = {
+      //         colors: col.sort((a, b) => b.area - a.area),
+      //       };
+      //     })
+      //     .catch((err) => err);
+      // } else {
+      //   results = {
+      //     error: err,
+      //   };
+      // }
     });
     return results;
   },
