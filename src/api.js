@@ -41,7 +41,7 @@ export default defineOperationApi({
 
     const src = ProxyService.getImage(path, transformOptions, "png");
     return {
-      img: String(src),
+      img: src,
     };
 
     const imgoptions = {
