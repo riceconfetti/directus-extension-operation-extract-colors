@@ -26,14 +26,22 @@ export default defineOperationApi({
       "/" +
       character.id +
       "/gachaSplash.webp";
-    const src = ProxyService.getImage(
-      path,
-      [
-        { key: "gravity", params: ["fp", c.fp[0], c.fp[1]] },
-        { key: "crop", params: ["1000", "1000"] },
-      ],
-      "png"
-    );
+
+    const transformOptions = [
+      { key: "trim", params: [1, "FF00FF"] },
+      {
+        key: "gravity",
+        params: [
+          "fp",
+          character.focalPoint.x + Math.random() * 0.2 - 0.1,
+          character.focalPoint.y + Math.random() * 0.2 - 0.1,
+        ],
+      },
+      { key: "crop", params: [300 * c.crop.x, 300 * c.crop.y] },
+      { key: "resize", params: ["fill", 200, 200] },
+    ];
+
+    const src = ProxyService.getImage(path, transformOptions, "png");
     return {
       img: src,
     };
