@@ -18,14 +18,14 @@ function isGraytone(r, g, b) {
 export default defineOperationApi({
   id: "operation-extract-colors",
   handler: async ({}, { data }) => {
-    const payload = data.$trigger.payload;
+    const character = data.$trigger.payload;
 
-    const c = payload;
-    return {
-      character: c,
-    };
-
-    const path = "/characters/" + c.game + "/" + c.id + "/gachaSplash.webp";
+    const path =
+      "/characters/" +
+      character.game +
+      "/" +
+      character.id +
+      "/gachaSplash.webp";
     const src = ProxyService.getImage(
       path,
       [
