@@ -53,7 +53,7 @@ export default defineOperationApi({
 
     let results;
 
-    await getPixels(src, (err, pixels) => {
+    getPixels(src, (err, pixels) => {
       if (!err) {
         const data = [...pixels.data];
         const [width, height] = pixels.shape;
