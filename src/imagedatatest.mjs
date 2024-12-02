@@ -7,7 +7,7 @@ const request = async (url) => {
   const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
   // let colors = await extractColors(getSync(buffer));
 
-  return await getSync(Buffer.from(buffer));
+  return await getSync(buffer);
   // return buffer;
 };
 
