@@ -31,9 +31,8 @@ export default defineOperationApi({
       "png"
     );
     return {
-      img: "src",
+      img: src,
     };
-
     const imgoptions = {
       pixels: 100000,
       distance: 0.18,
