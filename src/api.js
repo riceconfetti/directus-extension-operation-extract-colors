@@ -55,7 +55,13 @@ export default defineOperationApi({
       const response = await fetch(url);
       const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
       // let colors = await extractColors(await getSync(buffer), imgoptions);
-      return await getSync(Buffer.from(buffer));
+      get(Buffer.from(buffer), (error, data) => {
+        if (error) {
+          return error;
+        } else {
+          return data;
+        }
+      });
     };
 
     return { data: await request(src) };
