@@ -54,15 +54,14 @@ export default defineOperationApi({
     let results;
 
     getPixels(src, (err, pixels) => {
+      return { err: err, pixels: pixels };
       if (!err) {
-        return {
-          data: pixels,
-        };
         const data = [...pixels.data];
+
         const [width, height] = pixels.shape;
         extractColors({ data, width, height }, imgoptions)
           .then((col) => {
-            results = {
+            return {
               colors: col.sort((a, b) => b.area - a.area),
             };
           })
