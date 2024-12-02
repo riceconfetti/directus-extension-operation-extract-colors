@@ -1,7 +1,7 @@
 import { defineOperationApi } from "@directus/extensions-sdk";
 import ProxyService from "./imgproxy";
 import { extractColors } from "extract-colors";
-import { getPixels } from "get-pixels";
+const getPixels = await import("get-pixels");
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
