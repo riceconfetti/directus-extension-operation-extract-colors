@@ -1,5 +1,4 @@
 import { defineOperationApi } from "@directus/extensions-sdk";
-import { get, getSync } from "@andreekeberg/imagedata";
 import ProxyService from "./imgproxy.js";
 import { extractColors } from "extract-colors";
 
@@ -54,14 +53,13 @@ export default defineOperationApi({
     const request = async (url) => {
       const response = await fetch(url);
       const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
-      // let colors = await extractColors(await getSync(buffer), imgoptions);
-      get(Buffer.from(buffer), (error, data) => {
-        if (error) {
-          return error;
-        } else {
-          return data;
-        }
-      });
+      let imageData = {
+        width: 200,
+        height: 200,
+        data: buffer,
+        colorSpace: "srgb",
+      };
+      return await extractColors(imageData, imgoptions);
     };
 
     return { data: await request(src) };
