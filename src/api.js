@@ -59,18 +59,25 @@ export default defineOperationApi({
     const imageData = await image.arrayBuffer();
     const buffer = Buffer.from(imageData);
 
-    get(buffer, (error, data) => {
-      if (error) {
-        return error;
-      } else {
-        extractColors(data, imgoptions)
-          .then((col) => {
-            return {
-              colors: col.sort((a, b) => b.area - a.area),
-            };
-          })
-          .catch((err) => err);
-      }
-    });
+    try {
+      results = getSync(buffer);
+    } catch (error) {
+      results = error;
+    }
+
+    // get(buffer, (error, data) => {
+    //   if (error) {
+    //     return error;
+    //   } else {
+    //     extractColors(data, imgoptions)
+    //       .then((col) => {
+    //         return {
+    //           colors: col.sort((a, b) => b.area - a.area),
+    //         };
+    //       })
+    //       .catch((err) => err);
+    //   }
+    // });
+    return results;
   },
 });
