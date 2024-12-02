@@ -41,6 +41,9 @@ export default defineOperationApi({
     ];
 
     const src = ProxyService.getImage(path, transformOptions, "png");
+    return {
+      imageLink: src,
+    };
 
     const imgoptions = {
       pixels: 100000,
@@ -52,14 +55,8 @@ export default defineOperationApi({
       hueDistance: 0.083,
     };
 
-    let results;
-
     const response = await fetch(src);
     const image = await response.blob();
-
-    return {
-      image: image,
-    };
     const imageData = await image.arrayBuffer();
     const buffer = Buffer.from(imageData);
 
