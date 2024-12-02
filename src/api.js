@@ -53,7 +53,7 @@ export default defineOperationApi({
 
     const request = async (url) => {
       const response = await fetch(url);
-      const buffer = Buffer.from(await (await response.blob()).arrayBuffer);
+      const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
       return buffer;
     };
 
