@@ -1,15 +1,13 @@
-import { get, getSync } from "@andreekeberg/imagedata";
 import payload from "../payload.json" assert { type: "json" };
+import { Jimp } from "jimp";
 import { extractColors } from "extract-colors";
 
 const request = async (url) => {
-  const response = await fetch(url);
-  const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
-  let imageData = {
+  const image = await Jimp.read(url);
+  const imageData = {
+    data: new Uint8ClampedArray(image.bitmap.data),
     width: 200,
     height: 200,
-    data: buffer,
-    colorSpace: "srgb",
   };
   return await extractColors(imageData);
 
