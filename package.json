@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
-    "extract-colors": "^4.1.0"
+    "extract-colors": "^4.1.0",
+    "puppet-canvas": "^0.1.0"
   }
 }

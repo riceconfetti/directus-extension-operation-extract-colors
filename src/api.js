@@ -1,6 +1,7 @@
 import { defineOperationApi } from "@directus/extensions-sdk";
 import ProxyService from "./imgproxy.js";
 import { extractColors } from "extract-colors";
+import { createCanvas, loadImage, close } from "puppet-canvas";
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
@@ -12,6 +13,18 @@ function isGraytone(r, g, b) {
     const standDev = Math.sqrt(variance);
     return standDev / mean <= 0.05;
   }
+}
+
+async function getImageData(src) {
+  const canvas = await createCanvas(200, 200);
+  const ctx = await canvas.getContext("2d");
+
+  const image = await loadImage(src, canvas);
+  await ctx.drawImage(image, 0, 0, 200, 200);
+  const data = await ctx.getImageData(0, 0, 200, 200);
+
+  await close();
+  return data;
 }
 
 export default defineOperationApi({
@@ -51,14 +64,9 @@ export default defineOperationApi({
     };
 
     const request = async (url) => {
-      const response = await fetch(url);
-      const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
-      let imageData = {
-        width: 200,
-        height: 200,
-        data: buffer,
-        colorSpace: "srgb",
-      };
+      // const response = await fetch(url);
+      // const buffer = Buffer.from(await (await response.blob()).arrayBuffer());
+      let imageData = await getImageData(url);
       return await extractColors(imageData, imgoptions);
     };
 
