@@ -1,7 +1,8 @@
 import { defineOperationApi } from "@directus/extensions-sdk";
-import ProxyService from "./imgproxy.js";
+import { PNG } from "pngjs";
 import { extractColors } from "extract-colors";
-import { Jimp } from "jimp";
+import ProxyService from "./imgproxy.js";
+import axios from "axios";
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
@@ -51,10 +52,25 @@ export default defineOperationApi({
       hueDistance: 0.083,
     };
 
+    const urlToBuffer = async (url) => {
+      return axios({
+        method: "get",
+        url: url,
+        responseType: "arraybuffer",
+      })
+        .then((res) => Buffer.from(res.data))
+        .then((buffer) => {
+          console.log("is buffer?", Buffer.isBuffer(buffer));
+          console.log(buffer);
+          return buffer;
+        });
+    };
+
     const request = async (url) => {
-      const image = await Jimp.read(url);
+      const beforeImageBuffer = await urlToBuffer(url);
+      const beforeImage = PNG.sync.read(beforeImageBuffer);
       const imageData = {
-        data: new Uint8ClampedArray(image.bitmap.data),
+        data: new Uint8Array(beforeImage.data),
         width: 200,
         height: 200,
       };
