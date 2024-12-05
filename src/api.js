@@ -74,10 +74,10 @@ export default defineOperationApi({
         width: 200,
         height: 200,
       };
-      let colors = await extractColors(imageData, imgoptions);
-      colors.sort((a, b) => b.area - a.area);
 
-      return colors;
+      return (await extractColors(imageData, imgoptions)).sort(
+        (a, b) => b.area - a.area
+      );
     };
 
     return { data: await request(src) };

@@ -30,7 +30,7 @@ const urlToBuffer = async (url) => {
     });
 };
 
-let palette = await request(payload.src);
+let palette = (await request(payload.src)).sort((a, b) => b.area - a.area);
 
 let file = "";
 palette.forEach((c) => {
@@ -43,4 +43,4 @@ palette.forEach((c) => {
     "</div>\n";
 });
 fs.writeFileSync("test.html", file);
-console.log(await request(payload.src));
+console.log(palette);
