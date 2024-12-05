@@ -74,7 +74,9 @@ export default defineOperationApi({
         width: 200,
         height: 200,
       };
-      return await extractColors(imageData, imgoptions);
+      return await extractColors(imageData, imgoptions).sort(
+        (a, b) => b.area - a.area
+      );
     };
 
     return { data: await request(src) };
