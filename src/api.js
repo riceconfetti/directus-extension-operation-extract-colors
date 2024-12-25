@@ -19,12 +19,7 @@ function isGraytone(r, g, b) {
 export default defineOperationApi({
   id: "operation-extract-colors",
   handler: async ({ character }) => {
-    const path =
-      "/characters/" +
-      character.game +
-      "/" +
-      character.id +
-      "/gachaSplash.webp";
+    const path = "/characters/" + character.game + "/" + character.id + ".webp";
 
     const transformOptions = [
       { key: "trim", params: [1, "FF00FF"] },
