@@ -71,7 +71,7 @@ export default defineOperationApi({
         height: 200,
       };
 
-      return (await extractColors(imageData, imgoptions))
+      const colors = (await extractColors(imageData, imgoptions))
         .sort((a, b) => b.area - a.area)
         .map((c) => {
           let colorObj = {
@@ -82,6 +82,8 @@ export default defineOperationApi({
           colorObj.css = formatCSS(hex2oklch(hex), { format: "oklch" });
           return colorObj;
         });
+
+      return colors;
     };
 
     return { data: await request(src) };
