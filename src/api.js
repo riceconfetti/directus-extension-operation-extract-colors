@@ -3,6 +3,7 @@ import { PNG } from "pngjs";
 import { extractColors } from "extract-colors";
 import ProxyService from "./imgproxy.js";
 import axios from "axios";
+import { formatCSS, hex2oklch } from "colorizr";
 
 function isGraytone(r, g, b) {
   if ((r == g && r == b && r == 0) || r + g + b < 20) {
@@ -70,9 +71,17 @@ export default defineOperationApi({
         height: 200,
       };
 
-      return (await extractColors(imageData, imgoptions)).sort(
-        (a, b) => b.area - a.area
-      );
+      return (await extractColors(imageData, imgoptions))
+        .sort((a, b) => b.area - a.area)
+        .map((c) => {
+          let colorObj = {
+            area: c.area,
+          };
+          const hex = c.hex;
+          Object.assign(colorObj, hex2oklch(hex));
+          colorObj.css = formatCSS(hex2oklch(hex), { format: "oklch" });
+          return colorObj;
+        });
     };
 
     return { data: await request(src) };
