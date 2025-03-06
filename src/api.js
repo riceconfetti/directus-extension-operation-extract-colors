@@ -20,7 +20,7 @@ function isGraytone(r, g, b) {
 export default defineOperationApi({
   id: "operation-extract-colors",
   handler: async ({ character }) => {
-    const path = `${character.splash_art.filename_disk}`;
+    const path = `/${character.splash_art.filename_disk}`;
 
     const transformOptions = [
       { key: "trim", params: [1, "FF00FF"] },
