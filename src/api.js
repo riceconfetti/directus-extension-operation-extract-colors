@@ -87,6 +87,7 @@ export default defineOperationApi({
         .map((c) => {
           let colorObj = {
             area: c.area,
+            hex: c.hex,
           };
           const hex = c.hex;
           Object.assign(colorObj, hex2oklch(hex));
