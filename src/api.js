@@ -22,17 +22,28 @@ export default defineOperationApi({
   handler: async ({ character }) => {
     const path = `/${character.splash_art.filename_disk}`;
 
+    const fp = [
+      character.splash_art.focal_point_x / character.splash_art.width,
+      character.splash_art.focal_point_y / character.splash_art.height,
+    ];
+
     const transformOptions = [
       { key: "trim", params: [1, "FF00FF"] },
       {
         key: "gravity",
         params: [
           "fp",
-          character.focalPoint.x + Math.random() * 0.2 - 0.1,
-          character.focalPoint.y + Math.random() * 0.2 - 0.1,
+          fp[0] + Math.random() * 0.2 - 0.1,
+          fp[1] + Math.random() * 0.2 - 0.1,
         ],
       },
-      { key: "crop", params: [300 * character.crop.x, 300 * character.crop.y] },
+      {
+        key: "crop",
+        params: [
+          character.options.find((opt) => (opt.key = "icon")).width,
+          character.options.find((opt) => (opt.key = "icon")).height,
+        ],
+      },
       { key: "resize", params: ["fill", 200, 200] },
     ];
 
